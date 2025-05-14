@@ -1,45 +1,29 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { ThemeContext, ThemeProvider } from './components/ThemeContext';
-import BookForm from './components/bookform';
-import BookTable from './components/booktable';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { ThemeProvider } from './components/ThemeContext';
+import { BookProvider } from './components/bookContext';
+import AddBookPage from './pages/AddBookPage';
+import BookListPage from './pages/BookListPage';
 import './App.css';
 
 const App = () => {
-  const [books, setBooks] = useState([]);
-  const { theme, toggleTheme } = useContext(ThemeContext);
-
-useEffect(() => {
-  const storedBooks = JSON.parse(localStorage.getItem('books'));
-   
-  if (storedBooks?.length) {
-    setBooks(storedBooks);
-   
-  }
-}, []);
-
-
-  useEffect(() => {
-    localStorage.setItem('books', JSON.stringify(books));
-   
-  }, [books]);
-
-  const addBook = (book) => {
-    setBooks([...books, book]);
-  };
-
   return (
-    <div className={theme}>
-      <button onClick={toggleTheme}>Toggle Theme</button>
-      <BookForm addBook={addBook} />
-      <BookTable books={books} />
-    </div>
+    <ThemeProvider>
+      <BookProvider>
+        <Router>
+          <nav style={{ padding: '1rem' }}>
+            <Link to="/add" style={{ marginRight: '1rem' }}>Add Book</Link>
+            <Link to="/list">View Book List</Link>
+          </nav>
+
+          <Routes>
+            <Route path="/add" element={<AddBookPage />} />
+            <Route path="/list" element={<BookListPage />} />
+          </Routes>
+        </Router>
+      </BookProvider>
+    </ThemeProvider>
   );
 };
 
-const RootApp = () => (
-  <ThemeProvider>
-    <App />
-  </ThemeProvider>
-);
-
-export default RootApp;
+export default App;

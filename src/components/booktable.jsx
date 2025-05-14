@@ -12,6 +12,8 @@ const BookTable = ({ books }) => {
           <th>#</th>
           <th>Title</th>
           <th>Author</th>
+          <th>Language</th>
+          <th>Description</th>
         </tr>
       </thead>
       <tbody>
@@ -20,6 +22,8 @@ const BookTable = ({ books }) => {
             <td>{index + 1}</td>
             <td>{book.title}</td>
             <td>{book.author}</td>
+            <td>{book.language}</td>
+            <td>{book.description}</td>
           </tr>
         ))}
       </tbody>
