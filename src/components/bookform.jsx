@@ -8,7 +8,6 @@ const BookForm = ({ addBook }) => {
     title: '',
     author: '',
     language: '',
-    description: ''
   });
 
  
@@ -35,10 +34,10 @@ const BookForm = ({ addBook }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { title, author,language,description } = formData;
-    if (!title.trim() || !author.trim() || !language.trim() || !description.trim()) return;
+    if (!title.trim() || !author.trim() || !language.trim() ) return;
 
     addBook({ title, author,language,description });
-    setFormData({ title: '', author: '', language: '',description: '' });
+    setFormData({ title: '', author: '', language: ''});
     localStorage.removeItem('formData');
     navigate('/list');
   };
@@ -66,14 +65,6 @@ const BookForm = ({ addBook }) => {
         name="language"
         placeholder="language"
         value={formData.language}
-        onChange={handleChange}
-        className="border p-2 w-full"
-      />
-      <input
-        type="text"
-        name="description"
-        placeholder="description"
-        value={formData.description}
         onChange={handleChange}
         className="border p-2 w-full"
       />
